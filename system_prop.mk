@@ -25,7 +25,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.hwc.ptor.enable=true \
     persist.metadata_dynfps.disable=true \
     ro.opengles.version=196608 \
-    ro.sf.lcd_density=560
+    ro.sf.lcd_density=480
 
 # HWUI
 PRODUCT_PROPERTY_OVERRIDES += \
