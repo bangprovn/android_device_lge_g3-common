@@ -23,7 +23,6 @@ TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 # Platform
 TARGET_BOARD_PLATFORM := msm8974
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno330
-USE_CLANG_PLATFORM_BUILD := false
 
 # Architecture
 TARGET_ARCH := arm
@@ -112,6 +111,9 @@ BOARD_RIL_CLASS += ../../../device/lge/g3-common/ril
 
 # Qualcomm support
 BOARD_USES_QCOM_HARDWARE := true
+TARGET_USES_QCOM_BSP := true
+TARGET_COMPILE_WITH_MSM_KERNEL := true
+TARGET_USES_AOSP := false
 
 # Recovery
 BOARD_SUPPRESS_EMMC_WIPE := true
