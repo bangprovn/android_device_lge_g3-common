@@ -101,6 +101,10 @@ PRODUCT_PACKAGES += \
     memtrack.msm8974 \
     liboverlay
 
+# Glove mode
+PRODUCT_PACKAGES += \
+    DeviceSettings
+
 # Gello
 PRODUCT_PACKAGES += \
     Gello
