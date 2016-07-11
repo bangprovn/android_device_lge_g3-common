@@ -7,3 +7,6 @@ allow system_server sysfs_usb_supply:dir search;
 allow system_server sysfs_usb_supply:file { open read getattr };
 allow system_server logd:dir search;
 allow system_server logd:file { read getattr open };
+allow system_server self:unix_stream_socket ioctl;
+allow system_server cache_file:file execute;
+allow system_server zygote:binder call;

@@ -1,0 +1,1 @@
+allow bluetooth cache_file:file { execute open };

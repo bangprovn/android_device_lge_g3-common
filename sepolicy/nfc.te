@@ -1,1 +1,2 @@
 allow nfc nfc_device:chr_file rw_file_perms;
+allow nfc cache_file:file { execute open };

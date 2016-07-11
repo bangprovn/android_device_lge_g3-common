@@ -1,0 +1,2 @@
+allow installd cache_file:dir { write add_name };
+allow installd cache_file:file { write lock create open setattr };

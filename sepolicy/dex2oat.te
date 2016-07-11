@@ -1,0 +1,1 @@
+allow dex2oat cache_file:file { write open };

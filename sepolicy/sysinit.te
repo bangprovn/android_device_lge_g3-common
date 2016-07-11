@@ -1,0 +1,6 @@
+allow sysinit cache_file:dir { write create add_name setattr };
+allow sysinit dalvikcache_data_file:dir { read ioctl open mounton };
+allow sysinit self:capability { fowner chown fsetid };
+allow sysinit surfaceflinger_exec:file getattr;
+allow sysinit system_data_file:dir { read write open rmdir remove_name };
+allow sysinit wifi_data_file:file getattr;
