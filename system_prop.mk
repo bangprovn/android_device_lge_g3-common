@@ -51,3 +51,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.qualcomm.sns.hal=e \
     debug.qualcomm.sns.libsensor1=e \
 	gsm.proximity.enable=true
+
+# set CAF Branch
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.caf.branch=LA.BR.1.2.7_rb1.25
