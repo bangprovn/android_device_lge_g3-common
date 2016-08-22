@@ -54,4 +54,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # set CAF Branch
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.caf.branch=LA.BR.1.2.7_rb1.25
+    ro.caf.branch=LA.BR.1.3.4_rb1.18
