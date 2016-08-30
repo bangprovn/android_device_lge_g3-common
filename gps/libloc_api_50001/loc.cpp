@@ -44,6 +44,7 @@
 #include <errno.h>
 #include <LocDualContext.h>
 #include <cutils/properties.h>
+#include <hardware/gps_internal.h>
 
 #ifdef MODEM_POWER_VOTE
 #include <pm-service.h>

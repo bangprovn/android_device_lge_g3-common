@@ -39,12 +39,12 @@ TARGET_NO_RADIOIMAGE := true
 # Kernel
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/mkbootimg.mk
-BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=g3 user_debug=31 msm_rtb.filter=0x0
+BOARD_KERNEL_CMDLINE := console=none androidboot.hardware=g3 user_debug=31 msm_rtb.filter=0x0 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x0008000 --ramdisk_offset 0x2000000
-TARGET_KERNEL_SOURCE := kernel/lge/g3
+TARGET_KERNEL_SOURCE := kernel/lge/g3-n
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 
 # Audio
@@ -52,37 +52,20 @@ BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
 AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := false
-USE_CUSTOM_AUDIO_POLICY := 1
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 
 # Camera
+TARGET_NEEDS_TEXT_RELOCATIONS := true
 USE_DEVICE_SPECIFIC_CAMERA := true
-TARGET_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
-TARGET_GLOBAL_CFLAGS += -DLG_CAMERA_HARDWARE
-TARGET_GLOBAL_CFLAGS += -DPROPERTY_PERMS_APPEND=' \
-    { "persist.data.sensor_name", AID_CAMERA, 0 }, \
-    { "camera.4k2k.enable", AID_MEDIA, 0 }, \
-    { "persist.data.rear.minfps", AID_MEDIA, 0 }, \
-    { "persist.data.front.minfps", AID_MEDIA, 0 }, \
-    '
 
 # CMHW
 BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw/
 TARGET_TAP_TO_WAKE_NODE := "/sys/devices/virtual/input/lge_touch/tap_to_wake"
 
 # Crypto
-TARGET_HW_DISK_ENCRYPTION := true
-
-# Dex-preoptimization
-ifeq ($(HOST_OS),linux)
-	ifeq ($(WITH_DEXPREOPT),)
-    	WITH_DEXPREOPT := true
-    	WITH_DEXPREOPT_COMP := false
-	endif
-endif
-DONT_DEXPREOPT_PREBUILTS := true
+TARGET_HW_DISK_ENCRYPTION := false
 
 # Display
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
@@ -96,25 +79,21 @@ USE_OPENGL_RENDERER := true
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Offmode Charging
-BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(LOCAL_PATH)/charger/images
-TARGET_GLOBAL_CFLAGS += \
-    -DBOARD_CHARGING_CMDLINE_NAME='"androidboot.mode"' \
-    -DBOARD_CHARGING_CMDLINE_VALUE='"chargerlogo"'
+BOARD_CHARGING_CMDLINE_NAME := "androidboot.mode"
+BOARD_CHARGING_CMDLINE_VALUE := "chargerlogo"
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-# Power
-TARGET_POWERHAL_VARIANT := qcom
-
-# RIL
-BOARD_RIL_CLASS += ../../../device/lge/g3-common/ril
-
 # Qualcomm support
 BOARD_USES_QCOM_HARDWARE := true
-TARGET_USES_QCOM_BSP := true
+#TARGET_USES_QCOM_BSP := true
 TARGET_COMPILE_WITH_MSM_KERNEL := true
-TARGET_USES_AOSP := false
+TARGET_USES_AOSP := true
+
+WITH_DEXPREOPT := false
+
+TARGET_RIL_VARIANT := caf
 
 # Recovery
 BOARD_NO_SECURE_DISCARD := true

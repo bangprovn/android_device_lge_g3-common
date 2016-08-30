@@ -60,8 +60,7 @@ TARGET_SCREEN_HEIGHT := 2560
 TARGET_SCREEN_WIDTH := 1440
 
 # Dalvik/HWUI
-$(call inherit-product, frameworks/native/build/phone-xxxhdpi-3072-dalvik-heap.mk)
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxxhdpi-3072-hwui-memory.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
 # Art
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -87,11 +86,6 @@ PRODUCT_COPY_FILES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
     hwaddrs
-
-# Camera
-PRODUCT_PACKAGES += \
-    Snap \
-    camera.msm8974
 
 # Display
 PRODUCT_PACKAGES += \
@@ -173,9 +167,8 @@ PRODUCT_PACKAGES += \
     libOmxVidcCommon \
     libstagefrighthw
 
-# Power
 PRODUCT_PACKAGES += \
-    power.msm8974
+    camera.msm8974
 
 # Radio
 PRODUCT_PACKAGES += \

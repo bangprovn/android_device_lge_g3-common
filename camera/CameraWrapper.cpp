@@ -85,6 +85,31 @@ static bool previewRunning = false;
 static bool activeFocusMove = false;
 static camera_notify_callback sNotifCb;
 
+const char android::CameraParameters::AUDIO_ZOOM_OFF[] = "audio-zoom";
+const char android::CameraParameters::AUDIO_ZOOM_ON[] = "audio-zoom";
+const char android::CameraParameters::BEAUTY_SHOT_OFF[] = "beauty-shot";
+const char android::CameraParameters::BEAUTY_SHOT_ON[] = "beauty-shot";
+const char android::CameraParameters::BURST_SHOT_OFF[] = "burst-shot";
+const char android::CameraParameters::BURST_SHOT_ON[] = "burst-shot";
+const char android::CameraParameters::KEY_AUDIO_ZOOM[] = "audio-zoom";
+const char android::CameraParameters::KEY_AUDIO_ZOOM_SUPPORTED[] = "audio-zoom-supported";
+const char android::CameraParameters::KEY_BEAUTY_SHOT[] = "beauty-shot";
+const char android::CameraParameters::KEY_BEAUTY_SHOT_SUPPORTED[] = "beauty-shot-supported";
+const char android::CameraParameters::KEY_BURST_SHOT[] = "burst-shot";
+const char android::CameraParameters::KEY_BURST_SHOT_SUPPORTED[] = "burst-shot-supported";
+const char android::CameraParameters::KEY_FOCUS_MODE_OBJECT_TRACKING[] = "object-tracking";
+const char android::CameraParameters::KEY_FOCUS_MODE_OBJECT_TRACKING_SUPPORTED[] = "object-tracking-supported";
+const char android::CameraParameters::KEY_ISO_MODE[] = "iso";
+const char android::CameraParameters::KEY_LGE_CAMERA[] = "lge-camera";
+const char android::CameraParameters::KEY_LGE_ISO_MODE[] = "lg-iso";
+const char android::CameraParameters::KEY_SUPPORTED_ISO_MODES[] = "iso-values";
+const char android::CameraParameters::KEY_VIDEO_WDR[] = "video-wdr";
+const char android::CameraParameters::KEY_VIDEO_WDR_SUPPORTED[] = "video-wdr-supported";
+const char android::CameraParameters::VIDEO_WDR_OFF[] = "video-wdr";
+const char android::CameraParameters::VIDEO_WDR_ON[] = "video-wdr";
+const char android::CameraParameters::OBJECT_TRACKING_ON[] = "object-tracking";
+const char android::CameraParameters::OBJECT_TRACKING_OFF[] = "object-tracking";
+
 #define CAMERA_ID(device) (((wrapper_camera_device_t *)(device))->id)
 
 static void notify_intercept(int32_t msg, int32_t b, int32_t c, void *cookie) {
@@ -206,7 +231,6 @@ static char *camera_fixup_getparams(int id, const char *settings)
 
     if (id == 0 && is4k(params)) {
         params.set("preview-format", "yuv420sp");
-        params.set("video-snapshot-supported", "false");
     }
 
     /* LIE! The camera will set 3 snaps when doing HDR, and only return one. This hangs apps
@@ -240,7 +264,7 @@ static char *camera_fixup_setparams(int id, const char *settings)
     params.dump();
 #endif
 
-    params.set(android::CameraParameters::KEY_LGE_CAMERA, (id == 0 && is4k(params)) ? "1" : "0");
+    //params.set(android::CameraParameters::KEY_LGE_CAMERA, (id == 0 && is4k(params)) ? "1" : "0");
 
     if (params.get(android::CameraParameters::KEY_RECORDING_HINT)) {
         videoMode = (!strcmp(params.get(android::CameraParameters::KEY_RECORDING_HINT), "true"));
@@ -252,7 +276,7 @@ static char *camera_fixup_setparams(int id, const char *settings)
         params.set("hdr-mode", "0");
     }
 
-    /* iso to lge-iso */
+    /*iso to lge-iso */
     if(params.get(android::CameraParameters::KEY_ISO_MODE)) {
         isoMode = params.get(android::CameraParameters::KEY_ISO_MODE);
         ALOGV("%s: ISO mode: %s", __FUNCTION__, isoMode);
@@ -452,7 +476,6 @@ static int camera_start_recording(struct camera_device *device)
     parameters.unflatten(android::String8(camera_get_parameters(device)));
     if (CAMERA_ID(device) == 0 && is4k(parameters)) {
         parameters.set("preview-format", "nv12-venus");
-        parameters.set("picture-size", "4160x2340");
     }
     camera_set_parameters(device, strdup(parameters.flatten().string()));
 
@@ -804,3 +827,4 @@ static int camera_get_camera_info(int camera_id, struct camera_info *info)
         return 0;
     return gVendorModule->get_camera_info(camera_id, info);
 }
+
